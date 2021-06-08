@@ -20,7 +20,7 @@ class DisplayContacts extends Component {
     contactsCopy.sort((a, b) => a.name.localeCompare(b.name));
 
     this.setState({
-      contacts: [...contactsCopy],
+      contacts: contactsCopy,
     });
   };
 
@@ -29,7 +29,17 @@ class DisplayContacts extends Component {
     contactsCopy.sort((a, b) => b.popularity - a.popularity);
 
     this.setState({
-      contacts: [...contactsCopy],
+      contacts: contactsCopy,
+    });
+  };
+
+  deleteContact = () => {
+    const contactsCopy = [...this.state.contacts];
+    const movieIndex = contactsCopy.findIndex((item) => item.id);
+    contactsCopy.splice(movieIndex, 1);
+
+    this.setState({
+      contacts: contactsCopy,
     });
   };
 
@@ -70,6 +80,9 @@ class DisplayContacts extends Component {
                   </td>
                   <td> {contact.name}</td>
                   <td> {contact.popularity.toFixed(2)}</td>
+                  <td>
+                    <button onClick={this.deleteContact}> Delete </button>
+                  </td>
                 </tr>
               );
             })}
